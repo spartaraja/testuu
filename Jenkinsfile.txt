@@ -1,28 +1,20 @@
 node {
     try {
         stage('Checkout') {
-            bat "xcopy /E PATH_TO_YOURPROJECT /Y"
+            bat "xcopy /E https://github.com/spartaraja/testuu /Y"
         }
         stage ('Package Stage') {
             bat './mvnw clean package'
         }
         
         stage('Sonar Scanner Coverage') {
-            bat "./mvnw sonar:sonar -Dsonar.login=91c7ac935a0980111957527ad09ddc60d12aab87 -Dsonar.host.url=http://localhost:9000"
+            bat "./mvnw sonar:sonar -Dsonar.login=e8bbfb613f6f47cadee1e97ad7a516ef37130714 -Dsonar.host.url=http://localhost:9000"
         }
         stage ('Publish to Nexus') {
-            nexusPublisher nexusInstanceId: 'nexusserver', nexusRepositoryId: 'pipeline_snapshot_test1', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './target/gift-shop-api.war']],mavenCoordinate: [artifactId: 'sonar-maven-plugin', groupId: 'org.sonarsource.scanner.maven', packaging: 'war', version: '3.8.5']]]
+            nexusPublisher nexusInstanceId: 'nexus', nexusRepositoryId: 'pipeline_snapshot_test1', packages: [[$class: 'MavenPackage', mavenAssetList: [[classifier: '', extension: '', filePath: './target/gift-shop-api.war']],mavenCoordinate: [artifactId: 'sonar-maven-plugin', groupId: 'org.sonarsource.scanner.maven', packaging: 'war', version: '3.8.5']]]
         }
 
        
     }
-    catch (e) {
-        def to = "spartaraja@gmai.com"
-        currentBuild.result = 'FAILURE'
-        def subject = "Jenkins - Build FAILURE"
-        def content = '${JELLY_SCRIPT,template="html"}'
-        emailext(body: content, mimeType: 'text/html',
-                replyTo: '$DEFAULT_REPLYTO', subject: subject,
-                to: to)
-    }
+   
 }
