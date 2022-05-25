@@ -3,7 +3,7 @@ pipeline{
    stages{
         stage('Checkout') {
            steps{
-            git url: 'https://github.com/spartaraja/testuu'
+            git url: 'https://github.com/spartaraja/testuu.git'
         }
         }
         stage ('Package Stage') {
