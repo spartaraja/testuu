@@ -1,6 +1,6 @@
 pipeline{
    agent any
-   
+   stages{
         stage('Checkout') {
             git url: 'https://github.com/spartaraja/testuu'
         }
@@ -17,5 +17,5 @@ pipeline{
 
        
     
-   
+   }
 }
