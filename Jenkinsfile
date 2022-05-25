@@ -1,4 +1,5 @@
-node {
+pipeline{
+   agent any
    
         stage('Checkout') {
             git url: 'https://github.com/spartaraja/testuu'
