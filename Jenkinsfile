@@ -1,7 +1,7 @@
 node {
    
         stage('Checkout') {
-            bat "xcopy https://github.com/spartaraja/testuu"
+            git url: "https://github.com/spartaraja/testuu"
         }
         stage ('Package Stage') {
             bat './mvnw clean package'
