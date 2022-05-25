@@ -1,5 +1,5 @@
 node {
-    try {
+   
         stage('Checkout') {
             bat "xcopy /E https://github.com/spartaraja/testuu /Y"
         }
@@ -15,6 +15,6 @@ node {
         }
 
        
-    }
+    
    
 }
