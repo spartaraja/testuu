@@ -1,0 +1,23 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: demo
+  labels:
+    env: test
+    owner: raja
+    appName: skaffold-kaniko
+spec:
+  containers:
+  - name: demo-java
+   image: nexus-prepod.chubbdigital.com:9006/chubb-skaffold-kaniko/java-app
+   imagePullPolicy: Always
+   ports:
+   - containerPort: 8080
+     name: demoapp1
+   resources:
+    limits:
+    cpu: "200m"
+    memory: "1Gi"
+   requests:
+    cpu: "200m"
+    memory: "1Gi"

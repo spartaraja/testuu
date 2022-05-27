@@ -1,0 +1,30 @@
+apiVersion: skaffold/v2beta12
+kind: Config
+metadata:
+  name: skaffloddemo
+Profiles:
+  - name: test
+    build:
+      tagPolicy:
+       envTemplate:
+         template: "v1.0.2"
+      artifacts:
+      - image: localhost:8081/repository/pipeline_release_test1/java
+        context: .
+        kaniko:
+	  pushSecret: config.json
+	  intImage: nexus-prepod.chubbdigital.com:8099/chubb-rhe18:v8.3-2021q1
+  	  image: nexus-prepod.chubbdigital.com:8099/gcr.io/kaniko-project/executor:v1.5.1
+	  dockerfile: deployment/Dockerfile
+	  verbosity: debug
+	cluster:
+	  namespace: skaffold-kaniko
+	  dockerConfig:
+	    path: ./config.json
+	  annotations:
+	    type: build
+	deploy:
+	  kubectl:
+	    manifests:
+	    - deployment/k8s/*yaml
+ 	    defaultNamespace: skaffold-kaniko

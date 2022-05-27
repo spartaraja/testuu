@@ -1,0 +1,7 @@
+FROM nexus-preprod.chubbdigital.com:9006/chubb-rhe17-jre8:v7.9-2021q1-j8u281
+USER root
+WORKDIR /usr/java
+EXPOSE 8080
+RUN curl -LJO https://nexus.chubbdigital.com/..jar
+USER appUser
+CMD ["sh", "-c", "java -jar spring-boot-0.0.1.jar"]
